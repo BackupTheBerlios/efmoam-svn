@@ -129,6 +129,14 @@ static int __init efmoam_init(void)
 	
 	int err = 0;
 
+    err = efmoam_proc_init();
+
+    if (err < 0) {
+        printk(KERN_DEBUG "Could not register /proc/efmoam entry\n");
+        return err;
+    }
+
+
 	printk(KERN_DEBUG"Registering efmoam ethertype.\n");
 	dev_add_pack(&efmoam_ptype);
 	
@@ -145,8 +153,11 @@ static int __init efmoam_init(void)
 
 static void __exit efmoam_exit(void)
 {
-	printk(KERN_DEBUG"Unregistering efmoam ethertype");
+	printk(KERN_DEBUG"Unregistering efmoam ethertype\n");
 	dev_remove_pack(&efmoam_ptype);
+
+    printk(KERN_DEBUG"Unregistering the /proc/efmoam entries\n");
+    efmoam_proc_cleanup();
 #if 0	
 	unregister_netdev(&efmoam_netdevice);
 #endif 

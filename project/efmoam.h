@@ -10,6 +10,8 @@
 #define EFMOAM_HASH_MASK	(EFMOAM_HASH_SIZE  - 1)
 
 
+extern int __init  efmoam_proc_init(void);
+extern void efmoam_proc_cleanup(void);
 struct efmoam_flags {
 #if defined(__LITTLE_ENDIAN_BITFIELD)
 	__u16 link_fault 	: 1;
