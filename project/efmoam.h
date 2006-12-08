@@ -184,4 +184,24 @@ enum loopback_cmd {
 	LOOP_DS = 0x02		/* disable remote loopback */
 }  __attribute__ ((packed));
 
+struct efmoam_opt {
+    u8 mode;
+    u8 status;
+    u8 flags;
+    u32 maxpdusz;
+};
+
+struct if_efmoam {
+    struct efmoam_opt local;
+    struct efmoam_opt remote;
+    u8 propagate;               /*Propagate event */
+    u32 keepalive;
+    u32 hello;
+    u8 loopback;
+    u16 seq;                    /* Sequence number */
+    u32 last_rcv;
+    u32 last_snd;
+    /*TODO: add the error thresholds*/
+};
+
 #endif
